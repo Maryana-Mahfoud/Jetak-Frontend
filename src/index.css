@@ -1,0 +1,57 @@
+/* Loads Tailwind CSS v4 (preflight reset, theme and utilities) */
+@import "tailwindcss";
+
+/*
+ * Jetak design tokens.
+ * Each --color-* variable automatically becomes Tailwind classes,
+ * for example --color-jetak-orange -> bg-jetak-orange, text-jetak-orange, border-jetak-orange.
+ */
+@theme {
+  /* Official brand colors */
+  --color-jetak-navy: #1f2a44;
+  --color-jetak-orange: #ff7a00;
+  --color-jetak-gray: #e5e7eb;
+
+  /* Derived shades (same identity, used for hover states and soft backgrounds) */
+  --color-jetak-navy-light: #3a4763;
+  --color-jetak-orange-dark: #e66d00;
+  --color-jetak-orange-soft: #fff1e3;
+  --color-jetak-orange-light: #ffd2a6;
+  --color-jetak-gray-soft: #f5f6f8;
+
+  /* Soft shadows and one consistent corner radius for cards and dialogs */
+  --shadow-soft: 0 10px 30px -12px rgb(31 42 68 / 0.25);
+  --shadow-popup: 0 24px 60px -16px rgb(31 42 68 / 0.45);
+  --radius-card: 1rem;
+}
+
+/* Page defaults so every screen starts from the same look */
+@layer base {
+  /*
+   * Branded page scrollbar: orange thumb on a soft orange track.
+   * Supported by current Chrome, Edge, Firefox and Safari 18.2+;
+   * older browsers simply keep their default scrollbar.
+   */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-jetak-orange) var(--color-jetak-orange-soft);
+  }
+
+  body {
+    background-color: var(--color-jetak-gray-soft);
+    color: var(--color-jetak-navy);
+  }
+
+  /*
+   * Chrome paints fields filled by the browser (saved logins) with a light blue
+   * background. Delaying that color change for a very long time keeps our own
+   * background, and unlike overriding box-shadow it keeps the focus ring working.
+   */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    transition:
+      background-color 600000s 0s,
+      color 600000s 0s;
+  }
+}
